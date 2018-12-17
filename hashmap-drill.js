@@ -27,16 +27,11 @@ function main(){
 /* 
 input: acecarr
 output: true
-
 instance of one unique character
-
 loop through string and add to hash table (key= string[i], value = i)
 a,0
 when duplicate key happens, value is overwritten
-
 total of original string compared to total of hash (works besides non palindrome double letters)
-
-
 */
 
 function palindrome(str){
@@ -69,4 +64,61 @@ function palindrome(str){
 
 }
 
-palindrome('acecarr');
+// palindrome('acecarr');
+
+
+/* anagram grouping 
+input: ['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']
+output: [['east', 'teas', 'eats'], ['cars', 'arcs'], ['acre', 'race']]
+
+things we know: 
+each grouping consists of words that contain the same letters (same number implied)
+will use hash table 
+will have to look at each character of each word within the array 
+
+starter word 
+divide characters into hash table
+from that hash check for keys that match 
+if they do, pair, 
+else put in a separate array 
+
+
+create a total for each word as they go through 
+hash each individual character, return hash value 
+add them 
+
+compare to other words 
+if same group 
+else move on 
+
+//
+loop over individual words, assign letters an index 
+
+*/
+
+function anagramGroup(arr){
+  let charHash = new HashMap;
+  let totalsHash = new HashMap; 
+  let uniqueVal = 0;  
+  arr.forEach(function(item){
+    for(let i = 0; i <item.length; i++){
+      let character = item[i]; 
+      uniqueVal ++; 
+      charHash.set(character, uniqueVal); 
+    }
+  });
+  arr.forEach(function(word){
+
+    let itemTotal = 0; 
+    for(let i = 0; i <word.length; i++){
+      itemTotal += charHash.get(word[i]); 
+
+    }   
+    totalsHash.set(itemTotal, word); 
+  });
+  
+  console.log(totalsHash); 
+  console.log(charHash); 
+}
+
+anagramGroup(['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']);
