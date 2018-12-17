@@ -20,6 +20,7 @@ class HashMap {
   _findSlot(key){
     const hash = HashMap._hashString(key);
     const start =  hash % this._capacity;
+    console.log(hash, start);
 
     for(let i =start; i<start + this._capacity; i++){
       const index = i % this._capacity;
@@ -58,6 +59,7 @@ class HashMap {
       this._resize(this._capacity * HashMap.SIZE_RATIO);
     }
     const index = this._findSlot(key);
+    console.log(`${value} was placed at index: ${index}`);
     this._slots[index] = {
       key,
       value,
