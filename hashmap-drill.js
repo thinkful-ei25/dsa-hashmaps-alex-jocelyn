@@ -98,27 +98,26 @@ loop over individual words, assign letters an index
 
 function anagramGroup(arr){
   let charHash = new HashMap;
-  let totalsHash = new HashMap; 
-  let uniqueVal = 0;  
-  arr.forEach(function(item){
-    for(let i = 0; i <item.length; i++){
-      let character = item[i]; 
-      uniqueVal ++; 
-      charHash.set(character, uniqueVal); 
+  let results = [];
+ 
+  for(const word of arr) {
+    let charSorted = word.split('').sort().join('');
+    try{
+      let group = charHash.get(charSorted);
+      group.push(word);
+    } 
+    catch (error){
+      results.push(charSorted);
+      charHash.set(charSorted, [word]);
     }
-  });
-  arr.forEach(function(word){
-
-    let itemTotal = 0; 
-    for(let i = 0; i <word.length; i++){
-      itemTotal += charHash.get(word[i]); 
-
-    }   
-    totalsHash.set(itemTotal, word); 
-  });
+  }
   
-  console.log(totalsHash); 
-  console.log(charHash); 
+  let newArray = results.map(group =>{
+    return charHash.get(group);
+  });
+
+  return newArray;
+
 }
 
-anagramGroup(['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']);
+console.log(anagramGroup(['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']));
